@@ -19,7 +19,7 @@
 	width: 100%;
 	height: 100%;
 	transition:all 1s ease;
-	/*animation: xuanz 5s ease 1s infinite;*/
+	animation: xuanz 5s ease 1s infinite;
 }
 .c1 {
 	background: red;
@@ -47,6 +47,12 @@
 }
 @keyframes xuanz{
 	0% {
+		transform: rotateX(0deg);
+	}
+	34% {
+		transform: rotateX(-90deg);
+	}
+	67% {
 		transform: rotateX(0deg);
 	}
 	100% {
