@@ -12,8 +12,9 @@
 	height: 300px;
 	margin: 100px auto;
 	transform-style: preserve-3d;
-	transform-origin: 50% 50% -150px;
-	transform: translateZ(-150px);
+	transform-origin: 50% 50% -150px; /*中心旋转*/
+	/*transform-origin: 0 100px; 绕左前轴旋转*/
+	/*transform: translateZ(-150px);*/
 	animation: xuanz 5s linear 1s infinite;
 }
 .children {
