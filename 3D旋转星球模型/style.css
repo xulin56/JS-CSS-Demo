@@ -4,58 +4,66 @@
 }
 .window {
 	position: relative;
-	width: 300px;
-	height: 300px;
-	perspective: 200px;
+	perspective: 800px;
 }
 .father {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	position: relative;
+	width: 300px;
+	height: 300px;
+	margin: 100px auto;
 	transform-style: preserve-3d;
+	transform-origin: 50% 50% -150px;
+	transform: translateZ(-150px);
+	animation: xuanz 5s linear 1s infinite;
 }
 .children {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	transition:all 1s ease;
-	animation: xuanz 5s ease 1s infinite;
+	opacity: 0.5;
 }
 .c1 {
 	background: red;
-	transform: rotateX(0deg);
+	transform-origin: bottom;
+	transform: rotateX(90deg);
 }
 .c2 {
 	background: black;
-	transform: rotateX(90deg);
 }
 .c3 {
 	background: green;
-	transform: rotateZ(100px);
+	transform: translateZ(-300px);
 }
 .c4 {
+	transform-origin: top;
 	background: orange;
 	transform: rotateX(-90deg);
 }
 .c5 {
 	background: blue;
 	transform: rotateY(90deg);
+	transform-origin: left;
 }
 .c6 {
 	transform: rotateY(-90deg);
 	background: gray;
+	transform-origin: right;
 }
 @keyframes xuanz{
 	0% {
-		transform: rotateX(0deg);
+		transform: rotateY(0deg);
 	}
-	34% {
-		transform: rotateX(-90deg);
+	20% {
+		transform: rotateY(90deg);
 	}
-	67% {
-		transform: rotateX(0deg);
+	40% {
+		transform: rotateY(180deg);
+	}
+	80% {
+		transform: rotateY(270deg);
 	}
 	100% {
-		transform: rotateX(90deg);
+		transform: rotateY(360deg);
 	}
 }
