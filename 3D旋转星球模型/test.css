@@ -85,7 +85,7 @@ body {
   top: 6.25%; left: 6.25%;
   border: 1px solid #0099FF;
   -webkit-transform: rotateX(270deg) translateZ(50px);
-  -moz-transform: rotateX(270deg) translateZ(50px);
+  -moz-transform: rotateX(90deg) translateZ(50px);
   -ms-transform: rotateX(270deg) translateZ(50px);
   transform: rotateX(270deg) translateZ(50px);
 }

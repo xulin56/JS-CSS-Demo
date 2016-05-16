@@ -2,10 +2,13 @@
 	margin: 0;
 	padding: 0;
 }
+body {
+	background: #000;
+}
 .window {
 	position: relative;
 	float: left;
-	margin: 0px 200px;
+	margin: 0px 150px;
 	perspective: 800px;
 }
 .father {
@@ -32,7 +35,7 @@
 	transform: rotateX(90deg);
 }
 .c2 {
-	background: black;
+	background: white;
 }
 .c3 {
 	background: green;
@@ -97,29 +100,42 @@
 	height: 100%;
 }
 .x2,.xLine {
-	border: solid 1px green;
+	border: solid 2px blue;
 	transform: rotateX(90deg);
 }
 .z2,.zLine {
-	border: solid 1px blue;
+	border: solid 2px orange;
 	transform: rotateY(90deg);
 }
 .ycircle,.yLine {
-	border: solid 1px red;
+	border: solid 2px red;
 }
-.x1,.y1,.z1 {
+.yLine {
+	transform: rotateZ(90deg);
+}
+.x1 {
+	border: solid 2px blue;
+	transform: rotateX(90deg) translateZ(75px);
+}
+.x3 {
+	border: solid 2px blue;
+	transform: rotateX(90deg) translateZ(-75px);
+}
+.z1 {
+	border: solid 2px orange;
+	transform: rotateY(90deg) translateZ(75px);
+}
+.z3 {
+	border: solid 2px orange;
+	transform: rotateY(90deg) translateZ(-75px);
+}
+.y1 {
+	border: solid 2px red;
 	transform: translateZ(75px);
 }
-.x3,.y3,.z3 {
+.y3 {
+	border: solid 2px red;
 	transform: translateZ(-75px);
-}
-.x1,.x3 {
-	border: solid 1px green;
-	transform: rotateX(90deg);
-}
-.z1,.z3 {
-	border: solid 1px blue;
-	transform: rotateY(90deg);
 }
 .xLine,.yLine,.zLine {
 	position: absolute;
