@@ -9,11 +9,10 @@ window.onload = function () {
 	var canvas = document.getElementById("container");
 	var context = canvas.getContext("2d");
     curShowTime = getCurShowTime();
-    drawTime(context);
-    // setInterval(function () {
-    //     draw(context);
-    //     update();
-    // },50);
+    setInterval(function () {
+        drawTime(context);
+        // update();
+    },50);
 }
 
 //获取当前要展示的时间
@@ -29,27 +28,36 @@ function getCurShowTime() {
     return time;
 }
 
-//绘制
+//添加时间绘制属性
 function drawTime(ctx) {
 
-    var hours = parseInt(curShowTime[0]);
-    var minutes = parseInt(curShowTime[1]);
-    var seconds = parseInt(curShowTime[2]);
-    renderDigit( 30 , 60 , parseInt(hours/10) , ctx )
-    renderDigit( 30 + 15*(10) , 60 , parseInt(hours%10) , ctx )
+    var nextShowTime = getCurShowTime();
+
+    var nextHours = parseInt(nextShowTime[0]);
+    var nextMinutes = parseInt(nextShowTime[1]);
+    var nextSeconds = parseInt(nextShowTime[2]);
+
+    var curHours = parseInt(curShowTime[0]);
+    var curMinutes = parseInt(curShowTime[1]);
+    var curSeconds = parseInt(curShowTime[2]);
+
+    if (curSeconds != nextSeconds) {
+        curShowTime = nextShowTime;
+    }
+    ctx.clearRect(0,0,1200,700);
+    renderDigit( 30 , 60 , parseInt(curHours/10) , ctx )
+    renderDigit( 30 + 15*(10) , 60 , parseInt(curHours%10) , ctx )
     renderDigit( 30 + 30*(10) , 60 , 10 , ctx )
-    renderDigit( 30 + 39*(10) , 60 , parseInt(minutes/10) , ctx);
-    renderDigit( 30 + 54*(10) , 60 , parseInt(minutes%10) , ctx);
+    renderDigit( 30 + 39*(10) , 60 , parseInt(curMinutes/10) , ctx);
+    renderDigit( 30 + 54*(10) , 60 , parseInt(curMinutes%10) , ctx);
     renderDigit( 30 + 69*(10) , 60 , 10 , ctx);
-    renderDigit( 30 + 78*(10) , 60 , parseInt(seconds/10) , ctx);
-    renderDigit( 30 + 93*(10) , 60 , parseInt(seconds%10) , ctx);
+    renderDigit( 30 + 78*(10) , 60 , parseInt(curSeconds/10) , ctx);
+    renderDigit( 30 + 93*(10) , 60 , parseInt(curSeconds%10) , ctx);
 
 }
 
 function renderDigit( x , y , num , cxt ){
-
     cxt.fillStyle = "#FF0000";
-    console.log(num);
     for( var i = 0 ; i < numbers[num].length ; i ++ )
         for(var j = 0 ; j < numbers[num][i].length ; j ++ )
             if( numbers[num][i][j] == 1 ){
