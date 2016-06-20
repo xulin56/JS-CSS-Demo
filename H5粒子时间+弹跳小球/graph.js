@@ -11,7 +11,7 @@ window.onload = function () {
     curShowTime = getCurShowTime();
     setInterval(function () {
         drawTime(context);
-        // update();
+        update();
     },50);
 }
 
@@ -43,36 +43,49 @@ function drawTime(ctx) {
 
     if (curSeconds != nextSeconds) {
         curShowTime = nextShowTime;
+        if (parseInt(curHours/10) != parseInt(nextHours/10)) {
+            addball(30,60,parseInt(nextHours/10));
+        }
+        if (parseInt(curHours%10) != parseInt(nextHours%10)) {
+            addball(30 + 15*10,60,parseInt(nextHours%10));
+        }
+        if (parseInt(curMinutes/10) != parseInt(nextMinutes/10)) {
+            addball(30 + 39*10,60,parseInt(nextMinutes/10));
+        }
+        if (parseInt(curMinutes%10) != parseInt(nextMinutes%10)) {
+            addball(30 + 54*10,60,parseInt(nextMinutes%10));
+        }
+        if (parseInt(curSeconds/10) != parseInt(nextSeconds/10)) {
+            addball(30 + 78*10,60,parseInt(nextSeconds/10));
+        }
+        if (parseInt(curSeconds%10) != parseInt(nextSeconds%10)) {
+            addball(30 + 93*10,60,parseInt(nextSeconds/10));
+        }
     }
     ctx.clearRect(0,0,1200,700);
-    renderDigit( 30 , 60 , parseInt(curHours/10) , ctx )
-    renderDigit( 30 + 15*(10) , 60 , parseInt(curHours%10) , ctx )
-    renderDigit( 30 + 30*(10) , 60 , 10 , ctx )
-    renderDigit( 30 + 39*(10) , 60 , parseInt(curMinutes/10) , ctx);
-    renderDigit( 30 + 54*(10) , 60 , parseInt(curMinutes%10) , ctx);
-    renderDigit( 30 + 69*(10) , 60 , 10 , ctx);
-    renderDigit( 30 + 78*(10) , 60 , parseInt(curSeconds/10) , ctx);
-    renderDigit( 30 + 93*(10) , 60 , parseInt(curSeconds%10) , ctx);
-
+    draw( 30 , 60 , parseInt(curHours/10) , ctx )
+    draw( 30 + 15*(10) , 60 , parseInt(curHours%10) , ctx )
+    draw( 30 + 30*(10) , 60 , 10 , ctx )
+    draw( 30 + 39*(10) , 60 , parseInt(curMinutes/10) , ctx);
+    draw( 30 + 54*(10) , 60 , parseInt(curMinutes%10) , ctx);
+    draw( 30 + 69*(10) , 60 , 10 , ctx);
+    draw( 30 + 78*(10) , 60 , parseInt(curSeconds/10) , ctx);
+    draw( 30 + 93*(10) , 60 , parseInt(curSeconds%10) , ctx);
 }
 
-function renderDigit( x , y , num , cxt ){
-    cxt.fillStyle = "#FF0000";
-    for( var i = 0 ; i < numbers[num].length ; i ++ )
-        for(var j = 0 ; j < numbers[num][i].length ; j ++ )
+function draw( x , y , num , ctx ){
+    ctx.fillStyle = "#FF0000";
+    for( var i = 0 ; i < numbers[num].length ; i ++ ) {
+        for(var j = 0 ; j < numbers[num][i].length ; j ++ ) {
             if( numbers[num][i][j] == 1 ){
-                cxt.beginPath();
-                cxt.arc( x+j*2*(10)+10 , y+i*2*10+10, 10 , 0 , 2*Math.PI )
-                cxt.closePath()
+                ctx.beginPath();
+                ctx.arc( x+j*2*(10)+10 , y+i*2*10+10, 10 , 0 , 2*Math.PI )
+                ctx.closePath()
 
-                cxt.fill()
+                ctx.fill()
             }
-}
-
-
-//绘制小球
-function draw (ctx) {
-    ctx.clearRect(0,0,1200,700);
+        }
+    }
     for (var i in balls) {
         ctx.beginPath();
         ctx.fillStyle = balls[i].color;
@@ -82,67 +95,29 @@ function draw (ctx) {
     }
 }
 
-
-//更新时间
-function updateTime(ctx) {
-	var dt = new Date();
-	var time = [dt.getHours(),dt.getMinutes(),dt.getSeconds()];
-	var leftNum = [],rightNum = [];
-	var nextNum = []; 
-	for (var i = 0; i < time.length; i++) {
-		if(time[i] < 10) {
-			leftNum[i] = 0;
-			rightNum[i] = time[i];
-		} else {
-			leftNum[i] = parseInt(time[i] / 10);
-			rightNum[i] = time[i] % 10;
-		}
-		if(i == 0) {
-			nextNum[i] = (leftNum[i] + 1) % 3;
-		} else {
-			nextNum[i*2] = (leftNum[i] + 1) % 10;
-		}
-		nextNum[i*2 + 1] = (rightNum[i] + 1) % 10;
-		drawTime(i,leftNum[i],rightNum[i],ctx);
-	}
-	for (var i = 0;i < 2;i++) {
-		drawDots(i,ctx);
-	}	
-}
-
-//绘制冒号
-function drawDots (leftbeigin,ctx) {
-	for (var i = 0; i < numbers[10].length; i++) {
-		for (var j = 0; j < numbers[10][0].length; j++) {
-			if(numbers[10][i][j] == 1) {
-				ctx.beginPath();
-				ctx.fillStyle = "#FF0000";
-				ctx.arc(346+leftbeigin*414+j*22,100+i*22,10,0,Math.PI*2,true);
-				ctx.fill();
-				// ctx.fillRect(100 + j*20,100 + i*20,20,20);
-				ctx.closePath();
-			}
-		}
-	}
-}
-
 //添加小球
-function addball (x,y) {
-    var ball = {
-        x:x,
-        y:y,
-        r:15,
-        vx:Math.floor(Math.random()*8)+1,
-        vy:Math.floor(Math.random()*10)+1,
-        g:2,
-        f:0.75,
-        color:colors[Math.floor(Math.random()*8)]
+function addball (x,y,num) {
+    for (var i = 0; i < numbers[num].length; i++) {
+        for (var j = 0; j < numbers[num][i].length; j++) {
+            if (numbers[num][i][j] == 1) {
+                var ball = {
+                    x:x+j*2*10+10,
+                    y:y+i*2*10+10,
+                    r:15,
+                    vx:Math.floor(Math.random()*8)+1,
+                    vy:Math.floor(Math.random()*10)+1,
+                    g:2,
+                    f:0.75,
+                    color:colors[Math.floor(Math.random()*8)]
+                }
+                balls.push(ball);
+            }
+        }    
     }
-    balls.push(ball);
 }
 
 //更新数据
-function updateballs () {
+function update () {
     for(var i in balls) {
         balls[i].x += balls[i].vx;
         balls[i].y += balls[i].vy;
