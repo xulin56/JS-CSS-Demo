@@ -2,32 +2,85 @@
 var balls = [];
 //存取颜色数组
 var colors = ['#00FF00','#006EFF','#E66EFF','#FF6E00','#FFFF00','#C8F4FA','#9664FA','#FEC783'];
+//需要展示的时间
+var curShowTime = 0;
 
 window.onload = function () {
 	var canvas = document.getElementById("container");
 	var context = canvas.getContext("2d");
-	setInterval(start(context),1000);
-    setInterval(function () {
-        draw(context);
-        updateballs();
-    },50);
+    curShowTime = getCurShowTime();
+    drawTime(context);
+    // setInterval(function () {
+    //     draw(context);
+    //     update();
+    // },50);
 }
 
-//利用无参匿名函数向定时器传参
-function start(ctx) {
-	return function () {
-		ctx.clearRect(0,0,1200,700);
-		update(ctx);
-        addball();
-	}
+//获取当前要展示的时间
+function getCurShowTime() {
+    var dt = new Date();    
+    var time = [dt.getHours(),dt.getMinutes(),dt.getSeconds()];
+    for (var i = 0; i < time.length; i++) {
+        if(time[i] < 10) {
+            time[i] = '0' + time[i];
+        }
+        time[i] = "" + time[i];
+    }
+    return time;
 }
+
+//绘制
+function drawTime(ctx) {
+
+    var hours = parseInt(curShowTime[0]);
+    var minutes = parseInt(curShowTime[1]);
+    var seconds = parseInt(curShowTime[2]);
+    renderDigit( 30 , 60 , parseInt(hours/10) , ctx )
+    renderDigit( 30 + 15*(10) , 60 , parseInt(hours%10) , ctx )
+    renderDigit( 30 + 30*(10) , 60 , 10 , ctx )
+    renderDigit( 30 + 39*(10) , 60 , parseInt(minutes/10) , ctx);
+    renderDigit( 30 + 54*(10) , 60 , parseInt(minutes%10) , ctx);
+    renderDigit( 30 + 69*(10) , 60 , 10 , ctx);
+    renderDigit( 30 + 78*(10) , 60 , parseInt(seconds/10) , ctx);
+    renderDigit( 30 + 93*(10) , 60 , parseInt(seconds%10) , ctx);
+
+}
+
+function renderDigit( x , y , num , cxt ){
+
+    cxt.fillStyle = "#FF0000";
+    console.log(num);
+    for( var i = 0 ; i < numbers[num].length ; i ++ )
+        for(var j = 0 ; j < numbers[num][i].length ; j ++ )
+            if( numbers[num][i][j] == 1 ){
+                cxt.beginPath();
+                cxt.arc( x+j*2*(10)+10 , y+i*2*10+10, 10 , 0 , 2*Math.PI )
+                cxt.closePath()
+
+                cxt.fill()
+            }
+}
+
+
+//绘制小球
+function draw (ctx) {
+    ctx.clearRect(0,0,1200,700);
+    for (var i in balls) {
+        ctx.beginPath();
+        ctx.fillStyle = balls[i].color;
+        ctx.arc(balls[i].x,balls[i].y,balls[i].r,0,Math.PI*2,true);
+        ctx.closePath();
+        ctx.fill();
+    }
+}
+
 
 //更新时间
-function update(ctx) {
+function updateTime(ctx) {
 	var dt = new Date();
 	var time = [dt.getHours(),dt.getMinutes(),dt.getSeconds()];
 	var leftNum = [],rightNum = [];
-	var nextNum = []; //TODO下一个数字
+	var nextNum = []; 
 	for (var i = 0; i < time.length; i++) {
 		if(time[i] < 10) {
 			leftNum[i] = 0;
@@ -49,34 +102,6 @@ function update(ctx) {
 	}	
 }
 
-//绘制当前时间
-function drawTime(leftbegin,leftNum,rightNum,ctx) {
-	for (var i = 0; i < numbers[leftNum].length; i++) {
-		for (var j = 0; j < numbers[leftNum].length; j++) {
-			if(numbers[leftNum][i][j] == 1) {
-				ctx.beginPath();
-				ctx.fillStyle = "#FF0000";
-				ctx.arc(30+412*leftbegin+j*22,100+i*22,10,0,Math.PI*2,true);
-				ctx.fill();
-				// ctx.fillRect(100 + j*20,100 + i*20,20,20);
-				ctx.closePath();
-			}
-		}
-	}
-	for (var i = 0; i < numbers[rightNum].length; i++) {
-		for (var j = 0; j < numbers[rightNum].length; j++) {
-			if(numbers[rightNum][i][j] == 1) {
-				ctx.beginPath();
-				ctx.fillStyle = "#FF0000";
-				ctx.arc(194+416*leftbegin+j*22,100+i*22,10,0,Math.PI*2,true);
-				ctx.fill();
-				// ctx.fillRect(100 + j*20,100 + i*20,20,20);
-				ctx.closePath();
-			}
-		}
-	}
-}
-
 //绘制冒号
 function drawDots (leftbeigin,ctx) {
 	for (var i = 0; i < numbers[10].length; i++) {
@@ -94,10 +119,10 @@ function drawDots (leftbeigin,ctx) {
 }
 
 //添加小球
-function addball () {
+function addball (x,y) {
     var ball = {
-        x:0,
-        y:100,
+        x:x,
+        y:y,
         r:15,
         vx:Math.floor(Math.random()*8)+1,
         vy:Math.floor(Math.random()*10)+1,
@@ -120,18 +145,6 @@ function updateballs () {
     }
 }
 
-//绘制小球
-function draw (ctx) {
-    // var num = Math.floor(Math.random()*8);
-    ctx.clearRect(0,0,1200,700);
-    for (var i in balls) {
-        ctx.beginPath();
-        ctx.fillStyle = balls[i].color;
-        ctx.arc(balls[i].x,balls[i].y,balls[i].r,0,Math.PI*2,true);
-        ctx.closePath();
-        ctx.fill();
-    }
-}
 
 //存取数据数组
 var numbers = [
