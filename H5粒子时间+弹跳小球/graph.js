@@ -59,7 +59,7 @@ function drawTime(ctx) {
             addball(30 + 78*10,60,parseInt(nextSeconds/10));
         }
         if (parseInt(curSeconds%10) != parseInt(nextSeconds%10)) {
-            addball(30 + 93*10,60,parseInt(nextSeconds/10));
+            addball(30 + 93*10,60,parseInt(nextSeconds%10));
         }
     }
     ctx.clearRect(0,0,1200,700);
@@ -97,14 +97,15 @@ function draw( x , y , num , ctx ){
 
 //添加小球
 function addball (x,y,num) {
+    console.log(num);
     for (var i = 0; i < numbers[num].length; i++) {
         for (var j = 0; j < numbers[num][i].length; j++) {
             if (numbers[num][i][j] == 1) {
                 var ball = {
                     x:x+j*2*10+10,
                     y:y+i*2*10+10,
-                    r:15,
-                    vx:Math.floor(Math.random()*8)+1,
+                    r:10,
+                    vx:-Math.floor(Math.random()*8)+1,
                     vy:Math.floor(Math.random()*10)+1,
                     g:2,
                     f:0.75,
