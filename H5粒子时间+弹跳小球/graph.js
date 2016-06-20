@@ -4,6 +4,12 @@ var balls = [];
 var colors = ['#00FF00','#006EFF','#E66EFF','#FF6E00','#FFFF00','#C8F4FA','#9664FA','#FEC783'];
 //需要展示的时间
 var curShowTime = 0;
+//定义画布的长和宽
+var WIDTH = 1200,HEIGHT = 700;
+//定义小球半径
+var RADIUS = 10;
+//定义摩擦系数和重力加速度
+var Ff = 0.75,Gg = 2;
 
 window.onload = function () {
 	var canvas = document.getElementById("container");
@@ -47,30 +53,30 @@ function drawTime(ctx) {
             addball(30,60,parseInt(nextHours/10));
         }
         if (parseInt(curHours%10) != parseInt(nextHours%10)) {
-            addball(30 + 15*10,60,parseInt(nextHours%10));
+            addball(30 + 15*RADIUS,60,parseInt(nextHours%10));
         }
         if (parseInt(curMinutes/10) != parseInt(nextMinutes/10)) {
-            addball(30 + 39*10,60,parseInt(nextMinutes/10));
+            addball(30 + 39*RADIUS,60,parseInt(nextMinutes/10));
         }
         if (parseInt(curMinutes%10) != parseInt(nextMinutes%10)) {
-            addball(30 + 54*10,60,parseInt(nextMinutes%10));
+            addball(30 + 54*RADIUS,60,parseInt(nextMinutes%10));
         }
         if (parseInt(curSeconds/10) != parseInt(nextSeconds/10)) {
-            addball(30 + 78*10,60,parseInt(nextSeconds/10));
+            addball(30 + 78*RADIUS,60,parseInt(nextSeconds/10));
         }
         if (parseInt(curSeconds%10) != parseInt(nextSeconds%10)) {
-            addball(30 + 93*10,60,parseInt(nextSeconds%10));
+            addball(30 + 93*RADIUS,60,parseInt(nextSeconds%10));
         }
     }
-    ctx.clearRect(0,0,1200,700);
+    ctx.clearRect(0,0,WIDTH,HEIGHT);
     draw( 30 , 60 , parseInt(curHours/10) , ctx )
-    draw( 30 + 15*(10) , 60 , parseInt(curHours%10) , ctx )
-    draw( 30 + 30*(10) , 60 , 10 , ctx )
-    draw( 30 + 39*(10) , 60 , parseInt(curMinutes/10) , ctx);
-    draw( 30 + 54*(10) , 60 , parseInt(curMinutes%10) , ctx);
-    draw( 30 + 69*(10) , 60 , 10 , ctx);
-    draw( 30 + 78*(10) , 60 , parseInt(curSeconds/10) , ctx);
-    draw( 30 + 93*(10) , 60 , parseInt(curSeconds%10) , ctx);
+    draw( 30 + 15*RADIUS , 60 , parseInt(curHours%10) , ctx )
+    draw( 30 + 30*RADIUS , 60 , 10 , ctx )
+    draw( 30 + 39*RADIUS , 60 , parseInt(curMinutes/10) , ctx);
+    draw( 30 + 54*RADIUS , 60 , parseInt(curMinutes%10) , ctx);
+    draw( 30 + 69*RADIUS , 60 , 10 , ctx);
+    draw( 30 + 78*RADIUS , 60 , parseInt(curSeconds/10) , ctx);
+    draw( 30 + 93*RADIUS , 60 , parseInt(curSeconds%10) , ctx);
 }
 
 function draw( x , y , num , ctx ){
@@ -79,7 +85,7 @@ function draw( x , y , num , ctx ){
         for(var j = 0 ; j < numbers[num][i].length ; j ++ ) {
             if( numbers[num][i][j] == 1 ){
                 ctx.beginPath();
-                ctx.arc( x+j*2*(10)+10 , y+i*2*10+10, 10 , 0 , 2*Math.PI )
+                ctx.arc( x+j*2*RADIUS+10 , y+i*2*RADIUS+10, 10 , 0 , 2*Math.PI )
                 ctx.closePath()
 
                 ctx.fill()
@@ -97,18 +103,18 @@ function draw( x , y , num , ctx ){
 
 //添加小球
 function addball (x,y,num) {
-    console.log(num);
+    // console.log(num);
     for (var i = 0; i < numbers[num].length; i++) {
         for (var j = 0; j < numbers[num][i].length; j++) {
             if (numbers[num][i][j] == 1) {
                 var ball = {
-                    x:x+j*2*10+10,
-                    y:y+i*2*10+10,
-                    r:10,
+                    x:x+j*2*RADIUS+10,
+                    y:y+i*2*RADIUS+10,
+                    r:RADIUS,
                     vx:-Math.floor(Math.random()*8)+1,
                     vy:Math.floor(Math.random()*10)+1,
-                    g:2,
-                    f:0.75,
+                    g:Gg,
+                    f:Ff,
                     color:colors[Math.floor(Math.random()*8)]
                 }
                 balls.push(ball);
@@ -123,7 +129,7 @@ function update () {
         balls[i].x += balls[i].vx;
         balls[i].y += balls[i].vy;
         balls[i].vy += balls[i].g;
-        if(balls[i].y >= 670) {
+        if(balls[i].y >= 685) {
             balls[i].vy = - balls[i].vy*balls[i].f;
         }
     }
