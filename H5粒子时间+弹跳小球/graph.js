@@ -10,15 +10,26 @@ var WIDTH = 1200,HEIGHT = 700;
 var RADIUS = 10;
 //定义摩擦系数和重力加速度
 var Ff = 0.75,Gg = 2;
+//设置定时器
+var Timer;
 
 window.onload = function () {
 	var canvas = document.getElementById("container");
 	var context = canvas.getContext("2d");
+    var button = document.getElementById('button');
     curShowTime = getCurShowTime();
-    setInterval(function () {
-        drawTime(context);
-        update();
-    },50);
+    button.onclick = function () {
+        if(button.innerHTML == '暂停') {
+            clearInterval(Timer);
+            button.innerHTML = '开始';
+        } else if(button.innerHTML == '开始') {
+            Timer = setInterval(function () {
+                drawTime(context);
+                update();
+            },50);
+            button.innerHTML = '暂停';
+        }
+    }   
 }
 
 //获取当前要展示的时间
