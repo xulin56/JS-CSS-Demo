@@ -25,6 +25,7 @@ window.onload = function () {
         } else if(button.innerHTML == '开始') {
             Timer = setInterval(function () {
                 drawTime(context);
+                console.log(balls.length);
                 update();
             },50);
             button.innerHTML = '暂停';
@@ -142,6 +143,10 @@ function update () {
         balls[i].vy += balls[i].g;
         if(balls[i].y >= 685) {
             balls[i].vy = - balls[i].vy*balls[i].f;
+        }
+        // console.log(balls[i].x);
+        if (balls[i].x <= 0 || balls[i].x >= WIDTH) {
+            balls.splice(i,1);
         }
     }
 }
