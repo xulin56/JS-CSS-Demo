@@ -1,0 +1,53 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.main {
+	position: relative;
+	width: 1200px;
+	margin: 50px auto;
+	border: solid 1px #ccc; 
+}
+.imgs {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	overflow: hidden;
+}
+.main a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.imgs a img {
+	width: 100%;
+	height: 100%;
+}
+.controller {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	width: 80%;
+	height: 15px;
+	margin: 0 auto;
+	margin-top: 560px;
+}
+.controller a {
+	display: inline-block;
+	width: calc(20% - 16px);
+	height: 100%;
+	margin: 0 5px;
+	background: #575757;
+	border: solid 1px #CCC;
+}
+.controller a img {
+	display: none;
+}
+
+@keyframes myAnimate
+{
+	from {background: red;}
+	to {background: yellow;}
+}
