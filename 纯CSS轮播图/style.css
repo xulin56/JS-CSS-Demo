@@ -63,42 +63,48 @@
 	margin: 0px;
 	border: solid 1px #CCC;
 }
-.controller-tag1:hover {
-	background: #f00;
-}
-.controller-tag2:hover {
-	background: #f00;
-}
-.controller-tag3:hover {
-	background: #f00;
-}
-.controller-tag4:hover {
-	background: #f00;
-}
-.controller-tag5:hover {
-	background: #f00;
-}
 .controller a img {
 	display: none;
-}
-.controller .controller-tag1 img {
-	display: block;
 	box-sizing: border-box;
 	width: 100%;
 	height: 150px;
 	margin-top: -160px;
 	border: solid 1px #FDB024; 
 }
-.controller .controller-tag1::after {
+.controller a::after {
+	position: relative;
 	content: "";
-	display: block;
-	margin: 0 auto;
+	display: none;
+	margin-left: -20px;
+	left: 50%;
 	width: 10px;
 	height: 0px;
 	border-left:20px solid transparent;   
 	border-right:20px solid transparent;    
 	border-top: solid 10px #FDB024;
 }
+.controller-tag1:hover > img,
+.controller-tag1:hover::after{
+	display: block;
+}
+.controller-tag2:hover > img,
+.controller-tag2:hover::after{
+	display: block;
+}
+.controller-tag3:hover > img,
+.controller-tag3:hover::after{
+	display: block;
+}
+.controller-tag4:hover > img,
+.controller-tag4:hover::after{
+	display: block;
+}
+.controller-tag5:hover > img,
+.controller-tag5:hover::after{
+	display: block;
+}
+
+
 @keyframes imgAnimate
 {
 	0% {
