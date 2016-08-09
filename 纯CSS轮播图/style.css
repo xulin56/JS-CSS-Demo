@@ -37,7 +37,7 @@
 	left: 0px;
 	bottom: 0px;
 	width: 80%;
-	height: 17px;
+	height: 40px;
 	margin: 0 auto;
 	margin-top: 560px;
 }
@@ -50,7 +50,7 @@
 }
 .controller .show-static {
 	margin-bottom: -17px;
-	height: 100%;
+	height: 17px;
 	width: 100%;
 	background: #575757;
 }
@@ -59,7 +59,7 @@
 	box-sizing: border-box;
 	float: left;
 	width: 20%;
-	height: 100%;
+	height: 17px;
 	margin: 0px;
 	border: solid 1px #CCC;
 }
