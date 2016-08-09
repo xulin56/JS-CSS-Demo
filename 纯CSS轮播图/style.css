@@ -54,35 +54,32 @@
 	0% {
 		margin-top: 0px;
 	}
-	10% {
+	11.11% {
 		margin-top: 0px;
 	}
-	20% {
+	22.22% {
 		margin-top: -600px;
 	}
-	30% {
+	33.33% {
 		margin-top: -600px;
 	}
-	40% {
+	44.44% {
 		margin-top: -1200px;
 	}
-	50% {
+	55.55% {
 		margin-top: -1200px;
 	}
-	60% {
+	66.66% {
 		margin-top: -1800px;
 	}
-	70% {
+	77.77% {
 		margin-top: -1800px;
 	}
-	80% {
-		margin-top: -2400px;
-	}
-	90% {
+	88.88% {
 		margin-top: -2400px;
 	}
 	100% {
-		margin-top: 0px;
+		margin-top: -2400px;
 	}
 }
 
