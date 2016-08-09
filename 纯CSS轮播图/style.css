@@ -22,7 +22,8 @@
 .imgs a:first-child{
 	animation: imgAnimate 18s linear infinite alternate;
 } 
-.imgs:hover > .first-img{
+.imgs:hover > .first-img,
+.imgs:hover + .controller .show-run {
 	animation-play-state: paused;
 }
 .imgs a img {
