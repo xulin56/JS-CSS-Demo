@@ -22,6 +22,9 @@
 .imgs a:first-child{
 	animation: myAnimate 18s linear infinite alternate;
 } 
+.imgs:hover > .first-img{
+	animation-play-state: paused;
+}
 .imgs a img {
 	width: 100%;
 	height: 100%;
