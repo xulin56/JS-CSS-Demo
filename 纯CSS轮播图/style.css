@@ -24,11 +24,11 @@
 }
 .imgs a:first-child{
 	z-index: 50;
-	animation: myAnimate1 8s linear 2s infinite normal;
+	animation: myAnimate1 6s linear 2s infinite normal;
 }
 .imgs a:nth-child(2) {
 	z-index: 40;
-	animation: myAnimate2 8s linear 2s infinite normal;
+	animation: myAnimate1 8s linear 6s infinite normal;
 } 
 .imgs a:nth-child(3) {
 	z-index: 30;
@@ -40,7 +40,7 @@
 } 
 .imgs a:nth-child(5) {
 	z-index: 10;
-	animation: myAnimate1 8s linear 16s infinite normal;
+	animation: myAnimate5 2s linear 18s infinite normal;
 } 
 .imgs a img {
 	width: 100%;
@@ -73,18 +73,14 @@
 {
 	0% {
 		top: 0px;
-	}
-	25% {
-		top: -600px;
+		z-index: 50;
 	}
 	50% {
-		top: -1200px;
-	}
-	75% {
-		top: -1800px;
+		top: -600px;
 	}
 	100% {
-		top: 0px;	
+		top: 0px;
+		z-index: 10;	
 	}
 }
 @keyframes myAnimate2
@@ -145,18 +141,11 @@
 {
 	0% {
 		top: 0px;
-	}
-	25% {
-		top: -600px;
-	}
-	50% {
-		top: -1200px;
-	}
-	75% {
-		top: -1800px;
+		z-index: 50;
 	}
 	100% {
-		top: 0px;	
+		top: -600px;
+		z-index: 10;	
 	}
 }
 
