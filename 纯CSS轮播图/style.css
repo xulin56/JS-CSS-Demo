@@ -71,6 +71,7 @@
 	margin-top: -160px;
 	border: solid 1px #FDB024; 
 }
+
 .controller a::after {
 	position: relative;
 	content: "";
@@ -103,7 +104,6 @@
 .controller-tag5:hover::after{
 	display: block;
 }
-
 
 @keyframes imgAnimate
 {
