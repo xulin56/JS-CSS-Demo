@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="../jquery-3.2.0.js"></script>
+<style>
+	body{
+		margin: 0;
+		background-color: #5e5e5e;
+	}
+	#box{
+		width: 857px;
+		height: 574px;
+		padding-top: 126px;
+		padding-left:143px;
+		background: url(img/bg.png) no-repeat;
+		margin: 0px auto;
+	}
+	#wrap{
+		width: 700px;
+		height: 420px;
+		transform-style: preserve-3d;
+		perspective: 800px;
+	}
+	#wrap div{
+		width: 10px;
+		height: 420px;
+		background: url(img/01.png) no-repeat;
+		float: left;
+		transition: .5s;
+	}
+	#wrap div.active{
+		opacity: 0;
+	}
+</style>
+</head>
+<body>
+<div id="box">
+	<div id="wrap">
+	</div>
+</div>
+<script>
+	var wrap = $('#wrap');
+	var str = '';
+
+	//生成div,分割图片用
+	for(var i=0; i<70; i++){
+		str += `<div style="background-position-x:${-10*i}px"></div>`
+	};
+	wrap.html(str);
+
+	var tags = $('#wrap div');
+	var num = 0;
+	var timer = null;
+
+	//开始要切换到的图片
+	var imgSrc = 2;
+
+	//执行
+	go();
+
+	//执行函数
+	//当一张图片切换完成就继续切换下一张图片
+	function go(){
+		timer = setInterval(function(){
+			tab(num);
+			num++;
+			
+			if(num > 70){
+				clearInterval(timer);
+				imgSrc = imgSrc >= 5 ? 1 : ++imgSrc;
+				num = 0;
+				setTimeout(go,500);
+			};
+
+		},80);
+	};
+
+	//切换函数
+	function tab(n) {
+		//上一个显示
+		if( tags[n-1] ){
+			$( tags[n-1] ).removeClass('active');
+		};
+		//当前变透明
+		if( tags[n] ){
+			$( tags[n] ).addClass('active');
+			tags[n].style.backgroundImage = `url(img/0${imgSrc}.png)`;
+		}
+	}
+</script>
+</body>
+</html>

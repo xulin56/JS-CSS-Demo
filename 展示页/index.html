@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="../jquery-3.2.0.js"></script>
+<style>
+	body{
+		margin: 0;
+		background-color: #999;
+	}
+	#wrap{
+		height: 500px;
+		background: url(img/bg.png) no-repeat center;
+		background-size: 1800px 500px;
+		position: relative;
+		transform-style: preserve-3d;
+		perspective: 800px;
+		margin-top: 100px;
+	}
+	img{
+		border: none;
+		vertical-align: top;
+	}
+	#wrap img{
+		width: 300px;
+		height: 200px;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -150px;
+		margin-top: -100px;
+		transition: .7s ease-in-out;
+	}
+</style>
+</head>
+<body>
+<div id="wrap">
+	<img src="img/01.jpg"/>
+	<img src="img/02.jpg"/>
+	<img src="img/03.jpg"/>
+	<img src="img/04.jpg"/>
+	<img src="img/05.jpg"/>
+	<img src="img/06.jpg"/>
+	<img src="img/07.jpg"/>
+</div>
+<script>
+	var imgs = $('#wrap img');
+	var now = 3;
+	var target;
+	var onoff = true;
+
+	//切换函数
+	function tab(n){
+		//左右各3张图片
+		for(var i=0; i<3; i++){
+			//左侧排列
+			var Left = n - 1 - i;
+			Left = Left < 0 ? Left + 7 : Left;
+
+			imgs[Left].style.transform = `translateX( ${-150*(i+1)}px ) translateZ( ${(200-i*100)}px ) rotateY(30deg)`;
+
+			//右侧排列
+			var Right = n + 1 + i;
+			Right = Right > 6 ? Right - 7 : Right;
+
+			imgs[Right].style.transform = `translateX( ${150*(i+1)}px ) translateZ( ${(200-i*100)}px ) rotateY(-30deg)`;
+		};
+		//中间位置
+		imgs[n].style.transform = "translateZ(300px)";
+	};
+
+	//向前切换 用递归实现多次运动
+	function goPrev(){
+		onoff = false;
+		now = now <= 0 ? 6 : --now;
+		tab(now);
+
+		if(now === target){
+			onoff = true;
+			return;
+		};
+		setTimeout(goPrev,700);
+	};
+
+	//向后切换 用递归实现多次运动
+	function goNext() {
+		onoff = false;
+		now = now >= 6 ? 0 : ++now;
+		tab(now);
+
+		if(now === target){
+			onoff = true;
+			return;
+		};
+		setTimeout(goNext,700);
+	};
+
+	//开始
+	setTimeout(function(){
+		tab(now);
+	},200);
+
+	//点击事件
+	imgs.each(function (index,item) {
+		$(item).on('click',function(){
+			if(!onoff){
+				return;
+			};
+
+			target = index;
+			if(target === now){
+				return;
+			}else if(target > now){
+				if(target - now <= 3){
+					goNext();
+				}else{
+					goPrev();
+				}
+			}else{
+				if(target + 7 - now <= 3){
+					goNext();
+				}else{
+					goPrev();
+				}				
+			}
+		});
+	})
+</script>
+</body>
+</html>
